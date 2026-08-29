@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Admin - It Nice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <h1>🔒 Admin Login</h1>
+    <p class="login-sub">Manage the "It Nice" menu</p>
+    <form id="login-form">
+      <input type="password" id="login-password" placeholder="Password" required autocomplete="current-password">
+      <button type="submit" class="admin-btn admin-btn-primary">Log In</button>
+      <p id="login-error" class="login-error"></p>
+    </form>
+  </div>
+</div>
+
+<div id="admin-app" class="admin-app hidden">
+  <header class="admin-header">
+    <h1>It Nice &mdash; Menu Admin</h1>
+    <div class="admin-header-actions">
+      <button id="add-item-btn" class="admin-btn admin-btn-primary">+ Add Item</button>
+      <button id="logout-btn" class="admin-btn admin-btn-ghost">Log Out</button>
+    </div>
+  </header>
+
+  <nav class="admin-tabs">
+    <button class="admin-tab active" data-view="menu">🍽️ Menu</button>
+    <button class="admin-tab" data-view="orders">📋 Orders</button>
+  </nav>
+
+  <main class="admin-main">
+    <div id="menu-view" class="admin-view">
+      <div id="item-list" class="item-list"></div>
+    </div>
+
+    <div id="orders-view" class="admin-view hidden">
+      <div class="orders-kpis">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Orders</div>
+          <div class="kpi-value" id="kpi-total-orders">0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-value" id="kpi-total-revenue">$0.00</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Order</div>
+          <div class="kpi-value" id="kpi-avg-order">$0.00</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Orders Today</div>
+          <div class="kpi-value" id="kpi-orders-today">0</div>
+        </div>
+      </div>
+
+      <div class="orders-toolbar">
+        <h2>Recent Orders</h2>
+        <div class="orders-toolbar-actions">
+          <span id="orders-updated" class="orders-updated"></span>
+          <button id="refresh-orders-btn" class="admin-btn admin-btn-small">↻ Refresh</button>
+          <button id="reset-orders-btn" class="admin-btn admin-btn-small admin-btn-danger">🔄 Reset Orders</button>
+        </div>
+      </div>
+
+      <div id="orders-list" class="orders-list"></div>
+    </div>
+  </main>
+</div>
+
+<!-- Add/Edit Item Modal (reuses the site's checkout modal styling) -->
+<div id="item-form-overlay" class="checkout-overlay">
+  <div class="checkout-modal">
+    <button id="item-form-close" class="cart-close" aria-label="Close">&times;</button>
+    <h2 id="item-form-title">Add Item</h2>
+    <form id="item-form">
+      <input type="hidden" id="item-id">
+
+      <label for="item-icon">Icon (emoji)</label>
+      <input type="text" id="item-icon" placeholder="🍔" maxlength="4">
+
+      <label for="item-name">Name</label>
+      <input type="text" id="item-name" required placeholder="Item name">
+
+      <label for="item-desc">Description</label>
+      <textarea id="item-desc" placeholder="Short description"></textarea>
+
+      <label for="item-price">Price ($)</label>
+      <input type="number" id="item-price" min="0" step="0.01" required>
+
+      <label for="item-date">Special Date (optional)</label>
+      <input type="text" id="item-date" placeholder="e.g. Saturday 8/15">
+
+      <div class="item-form-row">
+        <label class="checkbox-label"><input type="checkbox" id="item-special"> Special</label>
+        <label class="checkbox-label"><input type="checkbox" id="item-active" checked> Active</label>
+      </div>
+
+      <label for="item-sort">Sort Order</label>
+      <input type="number" id="item-sort" step="1" value="0">
+
+      <button type="submit" class="submit-order-btn">Save Item</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
